@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3ekfxukpdkex"]
+
+[ext_resource type="Script" uid="uid://ccdj1gi56k7iu" path="res://_game/scripts/test/file_creation_tester.gd" id="1_cv5lo"]
+
+[node name="GameScene" type="Node2D"]
+
+[node name="Systems" type="Node2D" parent="."]
+
+[node name="FileCreationTester" type="Node" parent="Systems" node_paths=PackedStringArray("test_rich_text_lable")]
+script = ExtResource("1_cv5lo")
+test_rich_text_lable = NodePath("../../CanvasLayer/Control/FileReadingTest")
+metadata/_custom_type_script = "uid://ccdj1gi56k7iu"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="FileReadingTest" type="RichTextLabel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+text = "WORK IN PROGRESS... COME BACK LATER"
+horizontal_alignment = 1
+vertical_alignment = 1
