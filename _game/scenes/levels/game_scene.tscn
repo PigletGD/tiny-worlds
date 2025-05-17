@@ -1,14 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://d3ekfxukpdkex"]
+[gd_scene load_steps=11 format=3 uid="uid://d3ekfxukpdkex"]
 
 [ext_resource type="Script" uid="uid://ccdj1gi56k7iu" path="res://_game/scripts/test/file_creation_tester.gd" id="1_cv5lo"]
+[ext_resource type="Texture2D" uid="uid://bp5ite42ek8ru" path="res://_game/sprites/named/Outline.png" id="2_3g6ib"]
+[ext_resource type="Texture2D" uid="uid://dfewv3k3k2wp5" path="res://_game/sprites/named/Eyes.png" id="2_py10d"]
+[ext_resource type="Texture2D" uid="uid://brsojjytbv7rj" path="res://_game/sprites/named/Hair.png" id="3_88prv"]
+[ext_resource type="Texture2D" uid="uid://xnw1gj4dn4aq" path="res://_game/sprites/named/Pants.png" id="5_trels"]
+[ext_resource type="Shader" uid="uid://dgluqjepm2xcy" path="res://_game/shaders/color_shifter.gdshader" id="6_88prv"]
+[ext_resource type="Texture2D" uid="uid://dg4p17iu7g77g" path="res://_game/sprites/named/Shirt.png" id="6_rt7or"]
+[ext_resource type="Texture2D" uid="uid://dllblugm02r71" path="res://_game/sprites/named/Shoes.png" id="7_5u0ce"]
+[ext_resource type="Texture2D" uid="uid://dg661k2plthfd" path="res://_game/sprites/named/Skin.png" id="8_k07ly"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_trels"]
+shader = ExtResource("6_88prv")
+shader_parameter/hue = -2.2352e-08
+shader_parameter/brightness = -2.2352e-08
+shader_parameter/contrast = 1.0
+shader_parameter/saturation = 1.0
+shader_parameter/brightness_limit = 1.0
 
 [node name="GameScene" type="Node2D"]
 
 [node name="Systems" type="Node2D" parent="."]
 
-[node name="FileCreationTester" type="Node" parent="Systems" node_paths=PackedStringArray("test_rich_text_lable")]
+[node name="FileCreationTester" type="Node" parent="Systems" node_paths=PackedStringArray("test_rich_text_label", "test_sprite_2d")]
 script = ExtResource("1_cv5lo")
-test_rich_text_lable = NodePath("../../CanvasLayer/Control/FileReadingTest")
+test_rich_text_label = NodePath("../../CanvasLayer/Control/FileReadingTest")
+test_sprite_2d = NodePath("../../Named/Shirt")
 metadata/_custom_type_script = "uid://ccdj1gi56k7iu"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -30,3 +47,36 @@ theme_override_font_sizes/normal_font_size = 50
 text = "WORK IN PROGRESS... COME BACK LATER"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Named" type="Node2D" parent="."]
+position = Vector2(634, 658)
+scale = Vector2(11.285, 11.285)
+
+[node name="Outline" type="Sprite2D" parent="Named"]
+position = Vector2(1, -15)
+texture = ExtResource("2_3g6ib")
+
+[node name="Hair" type="Sprite2D" parent="Named"]
+position = Vector2(1, -15)
+texture = ExtResource("3_88prv")
+
+[node name="Eyes" type="Sprite2D" parent="Named"]
+position = Vector2(1, -15)
+texture = ExtResource("2_py10d")
+
+[node name="Pants" type="Sprite2D" parent="Named"]
+position = Vector2(1, -15)
+texture = ExtResource("5_trels")
+
+[node name="Shirt" type="Sprite2D" parent="Named"]
+material = SubResource("ShaderMaterial_trels")
+position = Vector2(1, -15)
+texture = ExtResource("6_rt7or")
+
+[node name="Shoes" type="Sprite2D" parent="Named"]
+position = Vector2(1, -15)
+texture = ExtResource("7_5u0ce")
+
+[node name="Skins" type="Sprite2D" parent="Named"]
+position = Vector2(1, -15)
+texture = ExtResource("8_k07ly")
