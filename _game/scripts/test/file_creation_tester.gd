@@ -13,17 +13,24 @@ extends Node
 @onready var local_character_file_path: String = abs_directory_path + "/Me.char"
 @onready var local_room_file_path: String = abs_directory_path + "/MainRoom.layout"
 
-var test_step: int = 2
+var test_step: int = 3
+
+var current_inspected_path
 
 
 func _ready() -> void:
 	if !exists(local_character_file_path):
 		create_character()
 	
-	test_rich_text_label.text = ""
-	test_character.visible = false
+	#test_rich_text_label.text = ""
+	#test_character.visible = false
 	
-	create_room()
+	#create_room()
+	
+	DisplayServer.clipboard_set(abs_directory_path)
+	
+	if not DirAccess.dir_exists_absolute(abs_directory_path + "/test"):
+		DirAccess.make_dir_recursive_absolute(abs_directory_path + "/test")
 
 
 func _notification(what: int) -> void:
@@ -32,8 +39,28 @@ func _notification(what: int) -> void:
 			check_for_changes_to_name()
 		elif test_step == 1:
 			check_for_changes_to_color()
-		else:
+		elif test_step == 2:
 			room_spawn_test()
+
+
+func _process(delta: float) -> void:
+	if test_step != 3:
+		return
+	
+	if DisplayServer.clipboard_has_image():
+		return
+	
+	if DisplayServer.clipboard_get() == current_inspected_path:
+		return
+	
+	current_inspected_path = DisplayServer.clipboard_get()
+	var path_to_evaluate: String = current_inspected_path.replace("\\", "/")
+	print(path_to_evaluate)
+	print(abs_directory_path)
+	if path_to_evaluate == abs_directory_path:
+		test_rich_text_label.text = "IM INSIDE THE HOUSE"
+	elif path_to_evaluate == abs_directory_path + "/test":
+		test_rich_text_label.text = "IM LOOKING AT MY TEST FOLDER"
 
 
 func exists(path: String) -> bool:
@@ -214,3 +241,14 @@ func room_spawn_test() -> void:
 		room.close()
 		
 		break
+
+
+func test_check_for_folder_open() -> void:
+	var test_path: String = abs_directory_path + "/test"
+	var test_path_new: String = abs_directory_path + "/test1"
+	var error: Error = DirAccess.rename_absolute(test_path, test_path_new)
+	if error == Error.OK:
+		print("Path is not open")
+	else:
+		print("Path is open.\n" + str(error))
+	pass
