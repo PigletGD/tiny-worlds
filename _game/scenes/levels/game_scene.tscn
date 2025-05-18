@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3ekfxukpdkex"]
+[gd_scene load_steps=12 format=3 uid="uid://d3ekfxukpdkex"]
 
 [ext_resource type="Script" uid="uid://ccdj1gi56k7iu" path="res://_game/scripts/test/file_creation_tester.gd" id="1_cv5lo"]
 [ext_resource type="Texture2D" uid="uid://bp5ite42ek8ru" path="res://_game/sprites/named/Outline.png" id="2_3g6ib"]
 [ext_resource type="Texture2D" uid="uid://dfewv3k3k2wp5" path="res://_game/sprites/named/Eyes.png" id="2_py10d"]
+[ext_resource type="PackedScene" uid="uid://bmcuqoy0u7xap" path="res://_game/scenes/room/test_tile.tscn" id="2_trels"]
 [ext_resource type="Texture2D" uid="uid://brsojjytbv7rj" path="res://_game/sprites/named/Hair.png" id="3_88prv"]
 [ext_resource type="Texture2D" uid="uid://xnw1gj4dn4aq" path="res://_game/sprites/named/Pants.png" id="5_trels"]
 [ext_resource type="Shader" uid="uid://dgluqjepm2xcy" path="res://_game/shaders/color_shifter.gdshader" id="6_88prv"]
@@ -22,10 +23,14 @@ shader_parameter/brightness_limit = 1.0
 
 [node name="Systems" type="Node2D" parent="."]
 
-[node name="FileCreationTester" type="Node" parent="Systems" node_paths=PackedStringArray("test_rich_text_label", "test_sprite_2d")]
+[node name="FileCreationTester" type="Node" parent="Systems" node_paths=PackedStringArray("test_rich_text_label", "test_sprite_2d", "test_character", "test_floor_panel_parent")]
 script = ExtResource("1_cv5lo")
 test_rich_text_label = NodePath("../../CanvasLayer/Control/FileReadingTest")
 test_sprite_2d = NodePath("../../Named/Shirt")
+test_character = NodePath("../../Named")
+test_floor_panel = ExtResource("2_trels")
+test_floor_panel_parent = NodePath("../../Tiles")
+test_spawn_offset = Vector2(105, 105)
 metadata/_custom_type_script = "uid://ccdj1gi56k7iu"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -47,6 +52,8 @@ theme_override_font_sizes/normal_font_size = 50
 text = "WORK IN PROGRESS... COME BACK LATER"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Tiles" type="Node2D" parent="."]
 
 [node name="Named" type="Node2D" parent="."]
 position = Vector2(634, 658)

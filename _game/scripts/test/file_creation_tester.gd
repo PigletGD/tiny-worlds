@@ -3,37 +3,48 @@ extends Node
 
 @export var test_rich_text_label: RichTextLabel
 @export var test_sprite_2d: Sprite2D
+@export var test_character: Node2D
+
+@export var test_floor_panel: PackedScene
+@export var test_floor_panel_parent: Node2D
+@export var test_spawn_offset: Vector2
 
 @onready var abs_directory_path: String = OS.get_system_dir(OS.SystemDir.SYSTEM_DIR_DESKTOP) + "/TinyWorld/MyHouse"
-@onready var local_file_path: String = abs_directory_path + "/Me.char"
+@onready var local_character_file_path: String = abs_directory_path + "/Me.char"
+@onready var local_room_file_path: String = abs_directory_path + "/MainRoom.layout"
 
-var test_step: int = 0
+var test_step: int = 2
 
 
 func _ready() -> void:
-	if !exists():
-		create()
+	if !exists(local_character_file_path):
+		create_character()
 	
-	test_rich_text_label.text = "HELLO! CAN YOU PLEASE NAME ME?"
+	test_rich_text_label.text = ""
+	test_character.visible = false
+	
+	create_room()
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
 		if test_step == 0:
 			check_for_changes_to_name()
-		else:
+		elif test_step == 1:
 			check_for_changes_to_color()
+		else:
+			room_spawn_test()
 
 
-func exists() -> bool:
+func exists(path: String) -> bool:
 	if not DirAccess.dir_exists_absolute(abs_directory_path):
 		DirAccess.make_dir_recursive_absolute(abs_directory_path)
 	
-	return FileAccess.file_exists(local_file_path)
+	return FileAccess.file_exists(path)
 
 
-func create() -> void:
-	var character = FileAccess.open(local_file_path, FileAccess.WRITE)
+func create_character() -> void:
+	var character = FileAccess.open(local_character_file_path, FileAccess.WRITE)
 	if character == null:
 		print("An error occured while trying to write.")
 		return
@@ -140,5 +151,66 @@ func check_for_changes_to_color() -> void:
 			break
 		
 		character.close()
+		
+		break
+
+
+func create_room() -> void:
+	if not exists(local_room_file_path):
+		print("Just doing a precautionary create of the directory")
+	
+	var room = FileAccess.open(local_room_file_path, FileAccess.WRITE)
+	if room == null:
+		print("An error occured while trying to write.")
+		return
+	
+	room.store_line("########")
+	room.store_line("########")
+	room.store_line("########")
+	room.store_line("########")
+	room.close()
+	
+	for x in 8:
+		for y in 4:
+			var tile_instance = test_floor_panel.instantiate() as Control
+			test_floor_panel_parent.add_child(tile_instance)
+			tile_instance.position = Vector2(x * test_spawn_offset.x, y * test_spawn_offset.y)
+
+
+func room_spawn_test() -> void:
+	var children = test_floor_panel_parent.get_children()
+	for child in children:
+		child.queue_free()
+	
+	var file_paths: Array[String] = []
+	var dir: DirAccess = DirAccess.open(abs_directory_path)
+	
+	var files = dir.get_files()
+	for file in files:
+		var file_name_split: PackedStringArray = file.split(".")
+		var extension: String = file_name_split[file_name_split.size() - 1]
+		
+		if extension != "layout":
+			continue
+		
+		var room = FileAccess.open(abs_directory_path + "/" + file, FileAccess.READ)
+		if room == null:
+			print("An error occured while trying to read.")
+			return
+		
+		var line = room.get_line()
+		var y = 0
+		while line != "":			
+			for x in line.length():
+				if line[x] == "#":
+					var tile_instance = test_floor_panel.instantiate() as Control
+					test_floor_panel_parent.add_child(tile_instance)
+					tile_instance.position = Vector2(x * test_spawn_offset.x, y * test_spawn_offset.y)
+			
+			y += 1
+			
+			line = room.get_line()
+		
+		room.close()
 		
 		break
