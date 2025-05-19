@@ -13,7 +13,7 @@ extends Node
 @onready var local_character_file_path: String = abs_directory_path + "/Me.char"
 @onready var local_room_file_path: String = abs_directory_path + "/MainRoom.layout"
 
-var test_step: int = 3
+var test_step: int = 5
 
 var current_inspected_path
 
@@ -41,6 +41,10 @@ func _notification(what: int) -> void:
 			check_for_changes_to_color()
 		elif test_step == 2:
 			room_spawn_test()
+		elif test_step == 4:
+			test_give_sprite()
+		elif test_step == 5:
+			test_create_zip()
 
 
 func _process(delta: float) -> void:
@@ -252,3 +256,34 @@ func test_check_for_folder_open() -> void:
 	else:
 		print("Path is open.\n" + str(error))
 	pass
+
+
+func test_give_sprite() -> void:
+	var image: Image = test_sprite_2d.texture.get_image()
+	
+	if not DirAccess.dir_exists_absolute(abs_directory_path + "/wardrobe"):
+		DirAccess.make_dir_recursive_absolute(abs_directory_path + "/wardrobe")
+	
+	image.save_png(abs_directory_path + "/wardrobe/shirt.png")
+
+
+func test_create_zip() -> void:
+	var writer = ZIPPacker.new()
+	var err = writer.open(abs_directory_path + "/package.zip")
+	if err != OK:
+		print(str(err))
+		return
+	
+	writer.start_file("hello.txt")
+	writer.write_file("Hello World".to_utf8_buffer())
+	
+	writer.close_file()
+	
+	var image: Image = test_sprite_2d.texture.get_image()
+	writer.start_file("temp_shirt.png")
+	writer.write_file(image.save_png_to_buffer())
+	writer.close_file()
+
+	writer.close()
+	
+	return
