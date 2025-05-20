@@ -9,6 +9,8 @@ extends Node
 @export var test_floor_panel_parent: Node2D
 @export var test_spawn_offset: Vector2
 
+@export var test_images_array: Array[CompressedTexture2D]
+
 @onready var abs_directory_path: String = OS.get_system_dir(OS.SystemDir.SYSTEM_DIR_DESKTOP) + "/TinyWorld/MyHouse"
 @onready var local_character_file_path: String = abs_directory_path + "/Me.char"
 @onready var local_room_file_path: String = abs_directory_path + "/MainRoom.layout"
@@ -22,7 +24,7 @@ func _ready() -> void:
 	if !exists(local_character_file_path):
 		create_character()
 	
-	#test_rich_text_label.text = ""
+	test_rich_text_label.text = "OPEN THE PACKAGE"
 	#test_character.visible = false
 	
 	#create_room()
@@ -268,21 +270,24 @@ func test_give_sprite() -> void:
 
 
 func test_create_zip() -> void:
+	if FileAccess.file_exists(abs_directory_path + "/package.zip"):
+		print("Package already exists")
+		return
+	
+	
 	var writer = ZIPPacker.new()
 	var err = writer.open(abs_directory_path + "/package.zip")
 	if err != OK:
 		print(str(err))
 		return
 	
-	writer.start_file("hello.txt")
-	writer.write_file("Hello World".to_utf8_buffer())
-	
-	writer.close_file()
-	
-	var image: Image = test_sprite_2d.texture.get_image()
-	writer.start_file("temp_shirt.png")
-	writer.write_file(image.save_png_to_buffer())
-	writer.close_file()
+	var index: int = 1
+	for test_image in test_images_array:
+		var image: Image = test_image.get_image()
+		writer.start_file("plant_" + str(index) + ".png")
+		writer.write_file(image.save_png_to_buffer())
+		writer.close_file()
+		index += 1
 
 	writer.close()
 	

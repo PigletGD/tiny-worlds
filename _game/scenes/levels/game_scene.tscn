@@ -1,15 +1,27 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3ekfxukpdkex"]
+[gd_scene load_steps=24 format=3 uid="uid://d3ekfxukpdkex"]
 
 [ext_resource type="Script" uid="uid://ccdj1gi56k7iu" path="res://_game/scripts/test/file_creation_tester.gd" id="1_cv5lo"]
 [ext_resource type="Texture2D" uid="uid://bp5ite42ek8ru" path="res://_game/sprites/named/Outline.png" id="2_3g6ib"]
 [ext_resource type="Texture2D" uid="uid://dfewv3k3k2wp5" path="res://_game/sprites/named/Eyes.png" id="2_py10d"]
 [ext_resource type="PackedScene" uid="uid://bmcuqoy0u7xap" path="res://_game/scenes/room/test_tile.tscn" id="2_trels"]
 [ext_resource type="Texture2D" uid="uid://brsojjytbv7rj" path="res://_game/sprites/named/Hair.png" id="3_88prv"]
+[ext_resource type="Texture2D" uid="uid://cjo1sq51lvoh2" path="res://_game/sprites/objects/Basic_Plants1.png" id="3_i0dqa"]
+[ext_resource type="Texture2D" uid="uid://bbpx4x2d7pk4f" path="res://_game/sprites/objects/Basic_Plants2.png" id="4_365e1"]
+[ext_resource type="Texture2D" uid="uid://bit0iyq0r0621" path="res://_game/sprites/objects/Basic_Plants3.png" id="5_5mxte"]
 [ext_resource type="Texture2D" uid="uid://xnw1gj4dn4aq" path="res://_game/sprites/named/Pants.png" id="5_trels"]
 [ext_resource type="Shader" uid="uid://dgluqjepm2xcy" path="res://_game/shaders/color_shifter.gdshader" id="6_88prv"]
+[ext_resource type="Texture2D" uid="uid://u56hj370fcaa" path="res://_game/sprites/objects/Basic_Plants4.png" id="6_qmxgr"]
 [ext_resource type="Texture2D" uid="uid://dg4p17iu7g77g" path="res://_game/sprites/named/Shirt.png" id="6_rt7or"]
 [ext_resource type="Texture2D" uid="uid://dllblugm02r71" path="res://_game/sprites/named/Shoes.png" id="7_5u0ce"]
+[ext_resource type="Texture2D" uid="uid://vqvi0sfe2b16" path="res://_game/sprites/objects/Basic_Plants5.png" id="7_14rxd"]
+[ext_resource type="Texture2D" uid="uid://xhiu6pj8y2lf" path="res://_game/sprites/objects/Basic_Plants6.png" id="8_e1w25"]
 [ext_resource type="Texture2D" uid="uid://dg661k2plthfd" path="res://_game/sprites/named/Skin.png" id="8_k07ly"]
+[ext_resource type="Texture2D" uid="uid://drthnyeenj1lj" path="res://_game/sprites/objects/Basic_Plants7.png" id="9_4fyii"]
+[ext_resource type="Texture2D" uid="uid://cknyehaiqktvt" path="res://_game/sprites/objects/Basic_Plants8.png" id="10_6veob"]
+[ext_resource type="Texture2D" uid="uid://b33nbduc3r2nf" path="res://_game/sprites/objects/Basic_Plants9.png" id="11_j5qwm"]
+[ext_resource type="Texture2D" uid="uid://c0b3q5id0h823" path="res://_game/sprites/objects/Basic_Plants10.png" id="12_uvu6e"]
+[ext_resource type="Texture2D" uid="uid://d17bkx0e3v0xn" path="res://_game/sprites/objects/Basic_Plants11.png" id="13_g8yde"]
+[ext_resource type="Texture2D" uid="uid://bn24mlyqa1bqu" path="res://_game/sprites/objects/Basic_Plants12.png" id="14_bkju3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trels"]
 shader = ExtResource("6_88prv")
@@ -31,6 +43,7 @@ test_character = NodePath("../../Named")
 test_floor_panel = ExtResource("2_trels")
 test_floor_panel_parent = NodePath("../../Tiles")
 test_spawn_offset = Vector2(105, 105)
+test_images_array = Array[CompressedTexture2D]([ExtResource("3_i0dqa"), ExtResource("4_365e1"), ExtResource("5_5mxte"), ExtResource("6_qmxgr"), ExtResource("7_14rxd"), ExtResource("8_e1w25"), ExtResource("9_4fyii"), ExtResource("10_6veob"), ExtResource("11_j5qwm"), ExtResource("12_uvu6e"), ExtResource("13_g8yde"), ExtResource("14_bkju3")])
 metadata/_custom_type_script = "uid://ccdj1gi56k7iu"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
