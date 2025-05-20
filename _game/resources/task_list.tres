@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TaskList" load_steps=3 format=3 uid="uid://hoa68j2lrksu"]
+
+[ext_resource type="Script" uid="uid://bls8gsedxi5dv" path="res://_game/scripts/tasks/task_list.gd" id="1_nunwm"]
+[ext_resource type="Script" uid="uid://cifpc2o8xly2d" path="res://_game/scripts/tasks/task_set.gd" id="2_nee1x"]
+
+[resource]
+script = ExtResource("1_nunwm")
+task_sets = Array[ExtResource("2_nee1x")]([])
+metadata/_custom_type_script = "uid://bls8gsedxi5dv"
