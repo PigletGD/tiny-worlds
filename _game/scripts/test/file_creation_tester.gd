@@ -21,6 +21,8 @@ var current_inspected_path
 
 
 func _ready() -> void:
+	return
+	
 	if !exists(local_character_file_path):
 		create_character()
 	
@@ -36,6 +38,7 @@ func _ready() -> void:
 
 
 func _notification(what: int) -> void:
+	return
 	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
 		if test_step == 0:
 			check_for_changes_to_name()
@@ -50,6 +53,7 @@ func _notification(what: int) -> void:
 
 
 func _process(delta: float) -> void:
+	return
 	if test_step != 3:
 		return
 	
@@ -67,6 +71,14 @@ func _process(delta: float) -> void:
 		test_rich_text_label.text = "IM INSIDE THE HOUSE"
 	elif path_to_evaluate == abs_directory_path + "/test":
 		test_rich_text_label.text = "IM LOOKING AT MY TEST FOLDER"
+
+
+func test_call() -> void:
+	print("HIIIIIIIIIIIIIIIIIIIIIIIIII")
+
+
+func test_call_dialogue_line(value: _DialogueLine) -> void:
+	print(value.line)
 
 
 func exists(path: String) -> bool:

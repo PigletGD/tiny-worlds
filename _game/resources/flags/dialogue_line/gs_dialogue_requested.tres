@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GlobalSignal_DialogueLine" load_steps=2 format=3 uid="uid://dpa6rtari6raf"]
+
+[ext_resource type="Script" uid="uid://c8mrjd3xoycxr" path="res://core/scripts/signals/types/global_signal_dialogue_line.gd" id="1_4rxob"]
+
+[resource]
+script = ExtResource("1_4rxob")
+metadata/_custom_type_script = "uid://c8mrjd3xoycxr"

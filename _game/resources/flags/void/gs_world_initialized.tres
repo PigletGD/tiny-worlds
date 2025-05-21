@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GlobalSignal_Void" load_steps=2 format=3 uid="uid://b2xij38uisv3p"]
+
+[ext_resource type="Script" uid="uid://bg8geqplxdkou" path="res://core/scripts/signals/types/global_signal_void.gd" id="1_ahqqp"]
+
+[resource]
+script = ExtResource("1_ahqqp")
+metadata/_custom_type_script = "uid://bg8geqplxdkou"

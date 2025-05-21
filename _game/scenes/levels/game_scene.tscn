@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d3ekfxukpdkex"]
+[gd_scene load_steps=33 format=3 uid="uid://d3ekfxukpdkex"]
 
 [ext_resource type="Script" uid="uid://ccdj1gi56k7iu" path="res://_game/scripts/test/file_creation_tester.gd" id="1_cv5lo"]
 [ext_resource type="Texture2D" uid="uid://bp5ite42ek8ru" path="res://_game/sprites/named/Outline.png" id="2_3g6ib"]
@@ -22,6 +22,35 @@
 [ext_resource type="Texture2D" uid="uid://c0b3q5id0h823" path="res://_game/sprites/objects/Basic_Plants10.png" id="12_uvu6e"]
 [ext_resource type="Texture2D" uid="uid://d17bkx0e3v0xn" path="res://_game/sprites/objects/Basic_Plants11.png" id="13_g8yde"]
 [ext_resource type="Texture2D" uid="uid://bn24mlyqa1bqu" path="res://_game/sprites/objects/Basic_Plants12.png" id="14_bkju3"]
+[ext_resource type="Script" uid="uid://clk6py5gxexkd" path="res://core/scripts/signals/global_signal_receiver.gd" id="15_365e1"]
+[ext_resource type="Script" uid="uid://cxq7ehovwl026" path="res://core/scripts/signals/global_signal_receiver_definition.gd" id="16_14rxd"]
+[ext_resource type="Script" uid="uid://6vp23bgaeet2" path="res://core/scripts/callable/callable_resource.gd" id="17_e1w25"]
+[ext_resource type="Resource" uid="uid://b2xij38uisv3p" path="res://_game/resources/flags/void/gs_world_initialized.tres" id="18_4fyii"]
+[ext_resource type="Resource" uid="uid://dpa6rtari6raf" path="res://_game/resources/flags/dialogue_line/gs_dialogue_requested.tres" id="19_e1w25"]
+
+[sub_resource type="Resource" id="Resource_14rxd"]
+script = ExtResource("17_e1w25")
+node_path = NodePath("..")
+methods = Array[String](["test_call"])
+metadata/_custom_type_script = "uid://6vp23bgaeet2"
+
+[sub_resource type="Resource" id="Resource_j5qwm"]
+script = ExtResource("16_14rxd")
+global_signal = ExtResource("18_4fyii")
+callables = Array[ExtResource("17_e1w25")]([SubResource("Resource_14rxd")])
+metadata/_custom_type_script = "uid://cxq7ehovwl026"
+
+[sub_resource type="Resource" id="Resource_4fyii"]
+script = ExtResource("17_e1w25")
+node_path = NodePath("..")
+methods = Array[String](["test_call_dialogue_line"])
+metadata/_custom_type_script = "uid://6vp23bgaeet2"
+
+[sub_resource type="Resource" id="Resource_e1w25"]
+script = ExtResource("16_14rxd")
+global_signal = ExtResource("19_e1w25")
+callables = Array[ExtResource("17_e1w25")]([SubResource("Resource_4fyii")])
+metadata/_custom_type_script = "uid://cxq7ehovwl026"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trels"]
 shader = ExtResource("6_88prv")
@@ -45,6 +74,11 @@ test_floor_panel_parent = NodePath("../../Tiles")
 test_spawn_offset = Vector2(105, 105)
 test_images_array = Array[CompressedTexture2D]([ExtResource("3_i0dqa"), ExtResource("4_365e1"), ExtResource("5_5mxte"), ExtResource("6_qmxgr"), ExtResource("7_14rxd"), ExtResource("8_e1w25"), ExtResource("9_4fyii"), ExtResource("10_6veob"), ExtResource("11_j5qwm"), ExtResource("12_uvu6e"), ExtResource("13_g8yde"), ExtResource("14_bkju3")])
 metadata/_custom_type_script = "uid://ccdj1gi56k7iu"
+
+[node name="GlobalSignalReceiver" type="Node" parent="Systems/FileCreationTester"]
+script = ExtResource("15_365e1")
+global_signal_receiver_definitions = Array[ExtResource("16_14rxd")]([SubResource("Resource_j5qwm"), SubResource("Resource_e1w25")])
+metadata/_custom_type_script = "uid://clk6py5gxexkd"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
