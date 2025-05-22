@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://d3ekfxukpdkex"]
+[gd_scene load_steps=41 format=3 uid="uid://d3ekfxukpdkex"]
 
 [ext_resource type="Script" uid="uid://ccdj1gi56k7iu" path="res://_game/scripts/test/file_creation_tester.gd" id="1_cv5lo"]
 [ext_resource type="Texture2D" uid="uid://bp5ite42ek8ru" path="res://_game/sprites/named/Outline.png" id="2_3g6ib"]
@@ -22,35 +22,48 @@
 [ext_resource type="Texture2D" uid="uid://c0b3q5id0h823" path="res://_game/sprites/objects/Basic_Plants10.png" id="12_uvu6e"]
 [ext_resource type="Texture2D" uid="uid://d17bkx0e3v0xn" path="res://_game/sprites/objects/Basic_Plants11.png" id="13_g8yde"]
 [ext_resource type="Texture2D" uid="uid://bn24mlyqa1bqu" path="res://_game/sprites/objects/Basic_Plants12.png" id="14_bkju3"]
-[ext_resource type="Script" uid="uid://clk6py5gxexkd" path="res://core/scripts/signals/global_signal_receiver.gd" id="15_365e1"]
-[ext_resource type="Script" uid="uid://cxq7ehovwl026" path="res://core/scripts/signals/global_signal_receiver_definition.gd" id="16_14rxd"]
+[ext_resource type="Script" uid="uid://clk6py5gxexkd" path="res://core/scripts/signals/receiver/global_signal_receiver.gd" id="15_365e1"]
+[ext_resource type="Script" uid="uid://cxq7ehovwl026" path="res://core/scripts/signals/receiver/global_signal_receiver_definition.gd" id="16_14rxd"]
 [ext_resource type="Script" uid="uid://6vp23bgaeet2" path="res://core/scripts/callable/callable_resource.gd" id="17_e1w25"]
-[ext_resource type="Resource" uid="uid://b2xij38uisv3p" path="res://_game/resources/flags/void/gs_world_initialized.tres" id="18_4fyii"]
 [ext_resource type="Resource" uid="uid://dpa6rtari6raf" path="res://_game/resources/flags/dialogue_line/gs_dialogue_requested.tres" id="19_e1w25"]
+[ext_resource type="Script" uid="uid://d3mb6w7ulixrb" path="res://_game/scripts/system/world_initializer.gd" id="20_6veob"]
+[ext_resource type="PackedScene" uid="uid://dgyyis7y264q" path="res://_game/scenes/ui/dialogue_box.tscn" id="21_6veob"]
+[ext_resource type="Script" uid="uid://lsbnpt55omyc" path="res://core/scripts/signals/emitter/global_signal_emitter.gd" id="21_j5qwm"]
+[ext_resource type="Script" uid="uid://bhta1m67hwedo" path="res://core/scripts/signals/emitter/global_signal_emitter_definition.gd" id="22_g8yde"]
+[ext_resource type="Resource" uid="uid://dhr5ume2irbme" path="res://_game/resources/dialogue/sequences/ds_act_00_world_initialization.tres" id="23_a34b4"]
+[ext_resource type="Script" uid="uid://odyfn753aryx" path="res://core/scripts/signals/emitter/definitions/global_signal_emitter_definition_dialogue_line.gd" id="23_bkju3"]
+[ext_resource type="Script" uid="uid://bxscov8nurf0s" path="res://_game/scripts/dialogue/dialogue_manager.gd" id="25_0xg5n"]
+[ext_resource type="Script" uid="uid://b2qp2ry5spyxd" path="res://_game/scripts/dialogue/dialogue_ui_reference.gd" id="26_07t0j"]
 
-[sub_resource type="Resource" id="Resource_14rxd"]
+[sub_resource type="Resource" id="Resource_5r03b"]
+script = ExtResource("26_07t0j")
+type = 0
+node_path = NodePath("../../CanvasLayer/DialogueDisplays/DialogueBox/DialogueDisplayer")
+metadata/_custom_type_script = "uid://b2qp2ry5spyxd"
+
+[sub_resource type="Resource" id="Resource_0xg5n"]
 script = ExtResource("17_e1w25")
 node_path = NodePath("..")
-methods = Array[String](["test_call"])
+methods = Array[String](["run_dialogue_sequence"])
 metadata/_custom_type_script = "uid://6vp23bgaeet2"
 
-[sub_resource type="Resource" id="Resource_j5qwm"]
-script = ExtResource("16_14rxd")
-global_signal = ExtResource("18_4fyii")
-callables = Array[ExtResource("17_e1w25")]([SubResource("Resource_14rxd")])
-metadata/_custom_type_script = "uid://cxq7ehovwl026"
-
-[sub_resource type="Resource" id="Resource_4fyii"]
+[sub_resource type="Resource" id="Resource_d2jpo"]
 script = ExtResource("17_e1w25")
-node_path = NodePath("..")
+node_path = NodePath("../../FileCreationTester")
 methods = Array[String](["test_call_dialogue_line"])
 metadata/_custom_type_script = "uid://6vp23bgaeet2"
 
-[sub_resource type="Resource" id="Resource_e1w25"]
+[sub_resource type="Resource" id="Resource_07t0j"]
 script = ExtResource("16_14rxd")
 global_signal = ExtResource("19_e1w25")
-callables = Array[ExtResource("17_e1w25")]([SubResource("Resource_4fyii")])
+callables = Array[ExtResource("17_e1w25")]([SubResource("Resource_0xg5n"), SubResource("Resource_d2jpo")])
 metadata/_custom_type_script = "uid://cxq7ehovwl026"
+
+[sub_resource type="Resource" id="Resource_a34b4"]
+script = ExtResource("23_bkju3")
+global_signal = ExtResource("19_e1w25")
+dialogue_line = ExtResource("23_a34b4")
+metadata/_custom_type_script = "uid://odyfn753aryx"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_trels"]
 shader = ExtResource("6_88prv")
@@ -75,10 +88,25 @@ test_spawn_offset = Vector2(105, 105)
 test_images_array = Array[CompressedTexture2D]([ExtResource("3_i0dqa"), ExtResource("4_365e1"), ExtResource("5_5mxte"), ExtResource("6_qmxgr"), ExtResource("7_14rxd"), ExtResource("8_e1w25"), ExtResource("9_4fyii"), ExtResource("10_6veob"), ExtResource("11_j5qwm"), ExtResource("12_uvu6e"), ExtResource("13_g8yde"), ExtResource("14_bkju3")])
 metadata/_custom_type_script = "uid://ccdj1gi56k7iu"
 
-[node name="GlobalSignalReceiver" type="Node" parent="Systems/FileCreationTester"]
+[node name="DialogueManager" type="Node" parent="Systems"]
+script = ExtResource("25_0xg5n")
+dialogue_ui_list = Array[ExtResource("26_07t0j")]([SubResource("Resource_5r03b")])
+metadata/_custom_type_script = "uid://bxscov8nurf0s"
+
+[node name="GlobalSignalReceiver" type="Node" parent="Systems/DialogueManager"]
 script = ExtResource("15_365e1")
-global_signal_receiver_definitions = Array[ExtResource("16_14rxd")]([SubResource("Resource_j5qwm"), SubResource("Resource_e1w25")])
+global_signal_receiver_definitions = Array[ExtResource("16_14rxd")]([SubResource("Resource_07t0j")])
 metadata/_custom_type_script = "uid://clk6py5gxexkd"
+
+[node name="WorldInitializer" type="Node" parent="Systems" node_paths=PackedStringArray("global_signal_emitter")]
+script = ExtResource("20_6veob")
+global_signal_emitter = NodePath("GlobalSignalEmitter")
+metadata/_custom_type_script = "uid://d3mb6w7ulixrb"
+
+[node name="GlobalSignalEmitter" type="Node" parent="Systems/WorldInitializer"]
+script = ExtResource("21_j5qwm")
+global_signal_emitter_definitions = Array[ExtResource("22_g8yde")]([SubResource("Resource_a34b4")])
+metadata/_custom_type_script = "uid://lsbnpt55omyc"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -99,6 +127,17 @@ theme_override_font_sizes/normal_font_size = 50
 text = "WORK IN PROGRESS... COME BACK LATER"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DialogueDisplays" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialogueBox" parent="CanvasLayer/DialogueDisplays" instance=ExtResource("21_6veob")]
+layout_mode = 1
 
 [node name="Tiles" type="Node2D" parent="."]
 
@@ -134,3 +173,5 @@ texture = ExtResource("7_5u0ce")
 [node name="Skins" type="Sprite2D" parent="Named"]
 position = Vector2(1, -15)
 texture = ExtResource("8_k07ly")
+
+[editable path="CanvasLayer/DialogueDisplays/DialogueBox"]

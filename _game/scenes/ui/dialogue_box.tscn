@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgyyis7y264q"]
+
+[ext_resource type="Texture2D" uid="uid://b74t4lencstit" path="res://_game/sprites/ui/Dialogue_Box.png" id="1_aailj"]
+[ext_resource type="Script" uid="uid://q86xchglu3o3" path="res://_game/scripts/dialogue/dialogue_displayer.gd" id="1_vv5d4"]
+[ext_resource type="Resource" uid="uid://b8eke831n781m" path="res://_game/resources/dialogue/settings/dialogue_box_type_writter_settings.tres" id="2_o55rc"]
+
+[node name="DialogueBox" type="MarginContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -138.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialogueDisplayer" type="Node" parent="." node_paths=PackedStringArray("rich_text_label", "timer")]
+script = ExtResource("1_vv5d4")
+rich_text_label = NodePath("../MarginContainer/RichTextLabel")
+timer = NodePath("../LetterDisplayTimer")
+ds_type_writter_settings = ExtResource("2_o55rc")
+metadata/_custom_type_script = "uid://q86xchglu3o3"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_aailj")
+region_rect = Rect2(0, 0, 90, 27)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 35
+vertical_alignment = 1
+
+[node name="LetterDisplayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="LetterDisplayTimer" to="DialogueDisplayer" method="display_letter"]

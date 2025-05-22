@@ -1,4 +1,5 @@
 class_name _DialogueLine
 extends Resource
 
-@export var line: String
+@export_multiline var line: String
+@export var dialogue_ui: DialogueEnums.DialogueUI

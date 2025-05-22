@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DialogueTypeWritterSettings" load_steps=2 format=3 uid="uid://b8eke831n781m"]
+
+[ext_resource type="Script" uid="uid://vnbdsjiivnxj" path="res://_game/scripts/dialogue/dialogue_type_writter_settings.gd" id="1_tbweo"]
+
+[resource]
+script = ExtResource("1_tbweo")
+letter_time = 0.03
+space_time = 0.06
+punctuation_time = 0.2
+metadata/_custom_type_script = "uid://vnbdsjiivnxj"
