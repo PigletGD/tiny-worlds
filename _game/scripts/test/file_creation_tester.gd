@@ -22,14 +22,13 @@ var current_inspected_path
 
 func _ready() -> void:
 	return
-	
 	if !exists(local_character_file_path):
 		create_character()
 	
-	test_rich_text_label.text = "OPEN THE PACKAGE"
-	#test_character.visible = false
+	test_rich_text_label.text = "HELLO! NAME ME!"
+	test_character.visible = false
 	
-	#create_room()
+	create_room()
 	
 	DisplayServer.clipboard_set(abs_directory_path)
 	

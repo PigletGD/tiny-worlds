@@ -7,7 +7,6 @@ var ui_dictionary: Dictionary
 
 
 func _ready() -> void:
-	print("HI")
 	for dialogue_ui in dialogue_ui_list:
 		if ui_dictionary.has(dialogue_ui.type):
 			continue

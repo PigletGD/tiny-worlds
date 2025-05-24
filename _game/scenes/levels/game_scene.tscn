@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://d3ekfxukpdkex"]
+[gd_scene load_steps=40 format=3 uid="uid://d3ekfxukpdkex"]
 
 [ext_resource type="Script" uid="uid://ccdj1gi56k7iu" path="res://_game/scripts/test/file_creation_tester.gd" id="1_cv5lo"]
 [ext_resource type="Texture2D" uid="uid://bp5ite42ek8ru" path="res://_game/sprites/named/Outline.png" id="2_3g6ib"]
@@ -27,13 +27,13 @@
 [ext_resource type="Script" uid="uid://6vp23bgaeet2" path="res://core/scripts/callable/callable_resource.gd" id="17_e1w25"]
 [ext_resource type="Resource" uid="uid://dpa6rtari6raf" path="res://_game/resources/flags/dialogue_line/gs_dialogue_requested.tres" id="19_e1w25"]
 [ext_resource type="Script" uid="uid://d3mb6w7ulixrb" path="res://_game/scripts/system/world_initializer.gd" id="20_6veob"]
-[ext_resource type="PackedScene" uid="uid://dgyyis7y264q" path="res://_game/scenes/ui/dialogue_box.tscn" id="21_6veob"]
 [ext_resource type="Script" uid="uid://lsbnpt55omyc" path="res://core/scripts/signals/emitter/global_signal_emitter.gd" id="21_j5qwm"]
 [ext_resource type="Script" uid="uid://bhta1m67hwedo" path="res://core/scripts/signals/emitter/global_signal_emitter_definition.gd" id="22_g8yde"]
 [ext_resource type="Resource" uid="uid://dhr5ume2irbme" path="res://_game/resources/dialogue/sequences/ds_act_00_world_initialization.tres" id="23_a34b4"]
 [ext_resource type="Script" uid="uid://odyfn753aryx" path="res://core/scripts/signals/emitter/definitions/global_signal_emitter_definition_dialogue_line.gd" id="23_bkju3"]
 [ext_resource type="Script" uid="uid://bxscov8nurf0s" path="res://_game/scripts/dialogue/dialogue_manager.gd" id="25_0xg5n"]
 [ext_resource type="Script" uid="uid://b2qp2ry5spyxd" path="res://_game/scripts/dialogue/dialogue_ui_reference.gd" id="26_07t0j"]
+[ext_resource type="PackedScene" uid="uid://l0upxts66dv6" path="res://_game/scenes/ui/dialogue_box_anchored_down.tscn" id="26_a34b4"]
 
 [sub_resource type="Resource" id="Resource_5r03b"]
 script = ExtResource("26_07t0j")
@@ -47,16 +47,10 @@ node_path = NodePath("..")
 methods = Array[String](["run_dialogue_sequence"])
 metadata/_custom_type_script = "uid://6vp23bgaeet2"
 
-[sub_resource type="Resource" id="Resource_d2jpo"]
-script = ExtResource("17_e1w25")
-node_path = NodePath("../../FileCreationTester")
-methods = Array[String](["test_call_dialogue_line"])
-metadata/_custom_type_script = "uid://6vp23bgaeet2"
-
 [sub_resource type="Resource" id="Resource_07t0j"]
 script = ExtResource("16_14rxd")
 global_signal = ExtResource("19_e1w25")
-callables = Array[ExtResource("17_e1w25")]([SubResource("Resource_0xg5n"), SubResource("Resource_d2jpo")])
+callables = Array[ExtResource("17_e1w25")]([SubResource("Resource_0xg5n")])
 metadata/_custom_type_script = "uid://cxq7ehovwl026"
 
 [sub_resource type="Resource" id="Resource_a34b4"]
@@ -78,6 +72,7 @@ shader_parameter/brightness_limit = 1.0
 [node name="Systems" type="Node2D" parent="."]
 
 [node name="FileCreationTester" type="Node" parent="Systems" node_paths=PackedStringArray("test_rich_text_label", "test_sprite_2d", "test_character", "test_floor_panel_parent")]
+process_mode = 4
 script = ExtResource("1_cv5lo")
 test_rich_text_label = NodePath("../../CanvasLayer/Control/FileReadingTest")
 test_sprite_2d = NodePath("../../Named/Shirt")
@@ -115,6 +110,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
+mouse_filter = 2
 
 [node name="FileReadingTest" type="RichTextLabel" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -123,6 +119,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 50
 text = "WORK IN PROGRESS... COME BACK LATER"
 horizontal_alignment = 1
@@ -135,13 +132,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="DialogueBox" parent="CanvasLayer/DialogueDisplays" instance=ExtResource("21_6veob")]
+[node name="DialogueBox" parent="CanvasLayer/DialogueDisplays" instance=ExtResource("26_a34b4")]
 layout_mode = 1
+offset_top = -139.0
+offset_bottom = -1.0
 
 [node name="Tiles" type="Node2D" parent="."]
 
 [node name="Named" type="Node2D" parent="."]
+visible = false
 position = Vector2(634, 658)
 scale = Vector2(11.285, 11.285)
 
