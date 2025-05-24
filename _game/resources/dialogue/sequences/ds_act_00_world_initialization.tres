@@ -1,20 +1,50 @@
-[gd_resource type="Resource" script_class="DialogueLine_Input" load_steps=20 format=3 uid="uid://dhr5ume2irbme"]
+[gd_resource type="Resource" script_class="DialogueLine_Input" load_steps=30 format=3 uid="uid://dhr5ume2irbme"]
 
 [ext_resource type="Script" uid="uid://dpwela8jbp7o8" path="res://_game/scripts/dialogue/dialogue_option.gd" id="1_0po3h"]
 [ext_resource type="Script" uid="uid://baqbusx1ci6gq" path="res://_game/scripts/dialogue/lines/dialogue_line_input.gd" id="1_a4vwt"]
 [ext_resource type="Script" uid="uid://dqeo0eeswo3qe" path="res://_game/scripts/dialogue/lines/dialogue_line_options.gd" id="2_2qc55"]
+[ext_resource type="Resource" uid="uid://b2xij38uisv3p" path="res://_game/resources/signals/void/gs_world_initialized.tres" id="2_315da"]
+[ext_resource type="Script" uid="uid://c3h6hopetsog8" path="res://core/scripts/signals/emitter/definitions/global_signal_emitter_definition_void.gd" id="3_fe68t"]
+[ext_resource type="Script" uid="uid://c3cexyde5mdat" path="res://core/scripts/modules/definitions/signals/gmd_emit_signals.gd" id="4_5g0md"]
+[ext_resource type="Resource" uid="uid://bu5h4h7l6016p" path="res://_game/resources/flags/gf_first_time_copied_home_path.tres" id="5_8pi8n"]
+[ext_resource type="Script" uid="uid://cenrkled1q875" path="res://core/scripts/dynamic_types/bool/dynamic_bool_game_flag.gd" id="6_hm8tx"]
+[ext_resource type="Script" uid="uid://bks70e1pdo5nj" path="res://_game/scripts/dialogue/lines/dialogue_line_wait_for_bool.gd" id="8_hs7i8"]
 
-[sub_resource type="Resource" id="Resource_0po3h"]
+[sub_resource type="Resource" id="Resource_s5wsh"]
+script = ExtResource("3_fe68t")
+global_signal = ExtResource("2_315da")
+metadata/_custom_type_script = "uid://c3h6hopetsog8"
+
+[sub_resource type="Resource" id="Resource_mq52i"]
+script = ExtResource("4_5g0md")
+global_signal_emit_definition = SubResource("Resource_s5wsh")
+metadata/_custom_type_script = "uid://c3cexyde5mdat"
+
+[sub_resource type="Resource" id="Resource_kaku8"]
+script = ExtResource("6_hm8tx")
+game_flag = ExtResource("5_8pi8n")
+metadata/_custom_type_script = "uid://cenrkled1q875"
+
+[sub_resource type="Resource" id="Resource_byavq"]
 script = ExtResource("1_a4vwt")
-line = "Can you confirm that you see it by copying the folder path?"
+line = "Excellent! We're making progress!"
 dialogue_ui = 0
 metadata/_custom_type_script = "uid://baqbusx1ci6gq"
 
+[sub_resource type="Resource" id="Resource_tbfog"]
+script = ExtResource("8_hs7i8")
+next_line = SubResource("Resource_byavq")
+boolean_evaluator = SubResource("Resource_kaku8")
+line = "Can you confirm that you see it by copying the world folder path?"
+dialogue_ui = 0
+metadata/_custom_type_script = "uid://bks70e1pdo5nj"
+
 [sub_resource type="Resource" id="Resource_2qc55"]
 script = ExtResource("1_a4vwt")
-next_line = SubResource("Resource_0po3h")
+next_line = SubResource("Resource_tbfog")
 line = "Alright, the setup should be complete, you should be able to see a new folder in your desktop."
 dialogue_ui = 0
+_gm_on_started_dialogue = SubResource("Resource_mq52i")
 metadata/_custom_type_script = "uid://baqbusx1ci6gq"
 
 [sub_resource type="Resource" id="Resource_hs7i8"]

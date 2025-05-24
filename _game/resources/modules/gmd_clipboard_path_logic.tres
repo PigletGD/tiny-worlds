@@ -1,0 +1,77 @@
+[gd_resource type="Resource" script_class="GameModule_SelectByBool" load_steps=24 format=3 uid="uid://1nbpqb12agkh"]
+
+[ext_resource type="Script" uid="uid://7u8sgcohgdiy" path="res://core/scripts/modules/definitions/general/select_by_bool/select_module_by_bool_evaluation_definition.gd" id="1_ms5ot"]
+[ext_resource type="Script" uid="uid://c57udtlmtbedy" path="res://core/scripts/dynamic_types/bool/dynamic_bool.gd" id="2_ms5ot"]
+[ext_resource type="Resource" uid="uid://bu5h4h7l6016p" path="res://_game/resources/flags/gf_first_time_copied_home_path.tres" id="2_pm7dd"]
+[ext_resource type="Script" uid="uid://cenrkled1q875" path="res://core/scripts/dynamic_types/bool/dynamic_bool_game_flag.gd" id="3_m6lmi"]
+[ext_resource type="Script" uid="uid://n7kovysv0me8" path="res://core/scripts/math/logical/logical_operation_and.gd" id="3_pm7dd"]
+[ext_resource type="Script" uid="uid://hx88kxq3pcga" path="res://core/scripts/math/logical/logical_operation_not.gd" id="4_87m17"]
+[ext_resource type="Script" uid="uid://nytfy5ln0geg" path="res://core/scripts/dynamic_types/bool/dynamic_bool_logical.gd" id="5_pn1gv"]
+[ext_resource type="Script" uid="uid://kt2mtym727p2" path="res://core/scripts/modules/definitions/flags/gmd_set_game_flag_value.gd" id="6_8n6o4"]
+[ext_resource type="Script" uid="uid://gji860lk2xvo" path="res://core/scripts/dynamic_types/bool/dynamic_bool_static.gd" id="7_ghuaw"]
+[ext_resource type="Script" uid="uid://51wnlg8s3bx6" path="res://core/scripts/dynamic_types/string/dynamic_string_globals.gd" id="7_pn1gv"]
+[ext_resource type="Script" uid="uid://dl1vloakdc7vd" path="res://core/scripts/dynamic_types/bool/dynamic_bool_same_string.gd" id="8_8n6o4"]
+[ext_resource type="Script" uid="uid://b6xpihq247bua" path="res://core/scripts/modules/definitions/general/gmd_select_by_bool.gd" id="8_w483p"]
+
+[sub_resource type="Resource" id="Resource_ghuaw"]
+script = ExtResource("3_m6lmi")
+game_flag = ExtResource("2_pm7dd")
+metadata/_custom_type_script = "uid://cenrkled1q875"
+
+[sub_resource type="Resource" id="Resource_w483p"]
+script = ExtResource("4_87m17")
+dynamic_bool = SubResource("Resource_ghuaw")
+metadata/_custom_type_script = "uid://hx88kxq3pcga"
+
+[sub_resource type="Resource" id="Resource_bdgsc"]
+script = ExtResource("5_pn1gv")
+logical_operation = SubResource("Resource_w483p")
+metadata/_custom_type_script = "uid://nytfy5ln0geg"
+
+[sub_resource type="Resource" id="Resource_k763n"]
+script = ExtResource("7_pn1gv")
+id = 0
+metadata/_custom_type_script = "uid://51wnlg8s3bx6"
+
+[sub_resource type="Resource" id="Resource_yn1im"]
+script = ExtResource("7_pn1gv")
+id = 4
+metadata/_custom_type_script = "uid://51wnlg8s3bx6"
+
+[sub_resource type="Resource" id="Resource_phade"]
+script = ExtResource("8_8n6o4")
+dynamic_string_one = SubResource("Resource_k763n")
+dynamic_string_two = SubResource("Resource_yn1im")
+metadata/_custom_type_script = "uid://dl1vloakdc7vd"
+
+[sub_resource type="Resource" id="Resource_m6lmi"]
+script = ExtResource("3_pm7dd")
+dynamic_bools = Array[ExtResource("2_ms5ot")]([SubResource("Resource_bdgsc"), SubResource("Resource_phade")])
+metadata/_custom_type_script = "uid://n7kovysv0me8"
+
+[sub_resource type="Resource" id="Resource_ab4b3"]
+script = ExtResource("5_pn1gv")
+logical_operation = SubResource("Resource_m6lmi")
+metadata/_custom_type_script = "uid://nytfy5ln0geg"
+
+[sub_resource type="Resource" id="Resource_b5lpq"]
+script = ExtResource("7_ghuaw")
+value = true
+metadata/_custom_type_script = "uid://gji860lk2xvo"
+
+[sub_resource type="Resource" id="Resource_nlsbq"]
+script = ExtResource("6_8n6o4")
+game_flag = ExtResource("2_pm7dd")
+value = SubResource("Resource_b5lpq")
+metadata/_custom_type_script = "uid://kt2mtym727p2"
+
+[sub_resource type="Resource" id="Resource_ngv26"]
+script = ExtResource("1_ms5ot")
+dynamic_bool = SubResource("Resource_ab4b3")
+game_module = SubResource("Resource_nlsbq")
+metadata/_custom_type_script = "uid://7u8sgcohgdiy"
+
+[resource]
+script = ExtResource("8_w483p")
+game_module_evaluation_definition = Array[ExtResource("1_ms5ot")]([SubResource("Resource_ngv26")])
+metadata/_custom_type_script = "uid://b6xpihq247bua"

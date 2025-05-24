@@ -1,0 +1,86 @@
+[gd_scene load_steps=24 format=3 uid="uid://h6yettcq6ldr"]
+
+[ext_resource type="Script" uid="uid://bgahkkrujk6jj" path="res://core/scripts/modules/game_module_invoker.gd" id="1_qvs2q"]
+[ext_resource type="Script" uid="uid://7u8sgcohgdiy" path="res://core/scripts/modules/definitions/general/select_by_bool/select_module_by_bool_evaluation_definition.gd" id="2_nt75b"]
+[ext_resource type="Script" uid="uid://51wnlg8s3bx6" path="res://core/scripts/dynamic_types/string/dynamic_string_globals.gd" id="3_djei3"]
+[ext_resource type="Script" uid="uid://cyjlj7j6p50i" path="res://core/scripts/dynamic_types/string/dynamic_string_clipboard.gd" id="4_3b55s"]
+[ext_resource type="Script" uid="uid://dl1vloakdc7vd" path="res://core/scripts/dynamic_types/bool/dynamic_bool_same_string.gd" id="5_l55gi"]
+[ext_resource type="Script" uid="uid://hx88kxq3pcga" path="res://core/scripts/math/logical/logical_operation_not.gd" id="6_a18j7"]
+[ext_resource type="Script" uid="uid://nytfy5ln0geg" path="res://core/scripts/dynamic_types/bool/dynamic_bool_logical.gd" id="7_3syfs"]
+[ext_resource type="Script" uid="uid://cnp2vr6srfwsl" path="res://core/scripts/modules/game_module.gd" id="8_sjjhp"]
+[ext_resource type="Script" uid="uid://dvbmqp7v0kwc5" path="res://_game/scripts/modules/definitions/strings/gmd_set_global_string.gd" id="9_bsk1i"]
+[ext_resource type="Resource" uid="uid://1nbpqb12agkh" path="res://_game/resources/modules/gmd_clipboard_path_logic.tres" id="10_bx073"]
+[ext_resource type="Script" uid="uid://dko73naejr1ub" path="res://core/scripts/modules/definitions/general/gmd_list.gd" id="11_t3f44"]
+[ext_resource type="Script" uid="uid://b6xpihq247bua" path="res://core/scripts/modules/definitions/general/gmd_select_by_bool.gd" id="12_lkspd"]
+
+[sub_resource type="Resource" id="Resource_5o13w"]
+script = ExtResource("3_djei3")
+id = 4
+metadata/_custom_type_script = "uid://51wnlg8s3bx6"
+
+[sub_resource type="Resource" id="Resource_33v6a"]
+script = ExtResource("3_djei3")
+id = 4
+metadata/_custom_type_script = "uid://51wnlg8s3bx6"
+
+[sub_resource type="Resource" id="Resource_ym33q"]
+script = ExtResource("4_3b55s")
+default = SubResource("Resource_33v6a")
+target_result = 2
+prevent_copy_if_image = true
+metadata/_custom_type_script = "uid://cyjlj7j6p50i"
+
+[sub_resource type="Resource" id="Resource_u77ai"]
+script = ExtResource("5_l55gi")
+dynamic_string_one = SubResource("Resource_5o13w")
+dynamic_string_two = SubResource("Resource_ym33q")
+metadata/_custom_type_script = "uid://dl1vloakdc7vd"
+
+[sub_resource type="Resource" id="Resource_rw7i3"]
+script = ExtResource("6_a18j7")
+dynamic_bool = SubResource("Resource_u77ai")
+metadata/_custom_type_script = "uid://hx88kxq3pcga"
+
+[sub_resource type="Resource" id="Resource_xcjs4"]
+script = ExtResource("7_3syfs")
+logical_operation = SubResource("Resource_rw7i3")
+metadata/_custom_type_script = "uid://nytfy5ln0geg"
+
+[sub_resource type="Resource" id="Resource_v8hmp"]
+script = ExtResource("4_3b55s")
+target_result = 2
+prevent_copy_if_image = true
+metadata/_custom_type_script = "uid://cyjlj7j6p50i"
+
+[sub_resource type="Resource" id="Resource_1kw8k"]
+script = ExtResource("9_bsk1i")
+id = 4
+dynamic_string = SubResource("Resource_v8hmp")
+metadata/_custom_type_script = "uid://dvbmqp7v0kwc5"
+
+[sub_resource type="Resource" id="Resource_um8qc"]
+script = ExtResource("11_t3f44")
+game_modules = Array[ExtResource("8_sjjhp")]([SubResource("Resource_1kw8k"), ExtResource("10_bx073")])
+metadata/_custom_type_script = "uid://dko73naejr1ub"
+
+[sub_resource type="Resource" id="Resource_b5xf3"]
+script = ExtResource("2_nt75b")
+dynamic_bool = SubResource("Resource_xcjs4")
+game_module = SubResource("Resource_um8qc")
+metadata/_custom_type_script = "uid://7u8sgcohgdiy"
+
+[sub_resource type="Resource" id="Resource_26i37"]
+script = ExtResource("12_lkspd")
+game_module_evaluation_definition = Array[ExtResource("2_nt75b")]([SubResource("Resource_b5xf3")])
+metadata/_custom_type_script = "uid://b6xpihq247bua"
+
+[node name="ClipboardTracker" type="Node"]
+script = ExtResource("1_qvs2q")
+game_module = SubResource("Resource_26i37")
+metadata/_custom_type_script = "uid://bgahkkrujk6jj"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="invoke"]

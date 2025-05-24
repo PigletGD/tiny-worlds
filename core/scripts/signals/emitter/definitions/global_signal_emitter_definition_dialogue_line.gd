@@ -5,5 +5,5 @@ extends _GlobalSignalEmitterDefinition
 @export var dialogue_line: _DialogueLine
 
 
-func emit() -> void:
+func emit(target: Object) -> void:
 	global_signal.emit(dialogue_line)

@@ -1,0 +1,5 @@
+class_name SelectDynamicStringArrayByBoolEvaluationDefinition
+extends Resource
+
+@export var dynamic_bool: _DynamicBool
+@export var dynamic_string_array: _DynamicStringArray

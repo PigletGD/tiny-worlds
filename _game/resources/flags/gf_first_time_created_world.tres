@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GameFlag" load_steps=2 format=3 uid="uid://bi1unhs7mnjnt"]
+
+[ext_resource type="Script" uid="uid://ddhucv6w78wa7" path="res://core/scripts/flags/game_flag.gd" id="1_lcrt2"]
+
+[resource]
+script = ExtResource("1_lcrt2")
+metadata/_custom_type_script = "uid://ddhucv6w78wa7"

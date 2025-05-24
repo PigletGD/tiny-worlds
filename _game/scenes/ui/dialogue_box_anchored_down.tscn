@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q86xchglu3o3" path="res://_game/scripts/dialogue/dialogue_displayer.gd" id="1_ut04h"]
 [ext_resource type="Resource" uid="uid://b8eke831n781m" path="res://_game/resources/dialogue/settings/dialogue_box_type_writter_settings.tres" id="2_8dee0"]
-[ext_resource type="Resource" uid="uid://dpa6rtari6raf" path="res://_game/resources/flags/dialogue_line/gs_dialogue_requested.tres" id="3_tqglj"]
+[ext_resource type="Resource" uid="uid://dpa6rtari6raf" path="res://_game/resources/signals/dialogue_line/gs_dialogue_requested.tres" id="3_tqglj"]
 [ext_resource type="Texture2D" uid="uid://b74t4lencstit" path="res://_game/sprites/ui/Dialogue_Box.png" id="4_y3kj0"]
 [ext_resource type="Script" uid="uid://bug5mvpu4eu35" path="res://_game/scripts/dialogue/dialogue_button.gd" id="5_8dee0"]
 
@@ -23,16 +23,19 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="DialogueDisplayer" type="Node" parent="." node_paths=PackedStringArray("root", "rich_text_label", "timer", "button_list")]
+[node name="DialogueDisplayer" type="Node" parent="." node_paths=PackedStringArray("root", "rich_text_label", "button_list", "bool_check_timer")]
 script = ExtResource("1_ut04h")
 root = NodePath("..")
 rich_text_label = NodePath("../MarginContainer/RichTextLabel")
-timer = NodePath("../LetterDisplayTimer")
 button_list = [NodePath("../VBoxContainer/DialogueButton"), NodePath("../VBoxContainer/DialogueButton2")]
+bool_check_timer = NodePath("Timer")
 ds_ui_type = 1
 ds_type_writter_settings = ExtResource("2_8dee0")
 gs_finished_dialogue_sequence = ExtResource("3_tqglj")
 metadata/_custom_type_script = "uid://q86xchglu3o3"
+
+[node name="Timer" type="Timer" parent="DialogueDisplayer"]
+wait_time = 0.2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
@@ -67,9 +70,6 @@ mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 35
 vertical_alignment = 1
-
-[node name="LetterDisplayTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -155,6 +155,6 @@ vertical_alignment = 1
 
 [connection signal="finished_displaying_input" from="DialogueDisplayer" to="Sprite2D" method="set_visible" binds= [true]]
 [connection signal="started_displaying" from="DialogueDisplayer" to="Sprite2D" method="set_visible" binds= [false]]
-[connection signal="timeout" from="LetterDisplayTimer" to="DialogueDisplayer" method="display_letter"]
+[connection signal="timeout" from="DialogueDisplayer/Timer" to="DialogueDisplayer" method="try_proceed_if_bool_is_true"]
 [connection signal="pressed" from="VBoxContainer/DialogueButton" to="VBoxContainer/DialogueButton" method="on_pressed"]
 [connection signal="pressed" from="VBoxContainer/DialogueButton2" to="VBoxContainer/DialogueButton2" method="on_pressed"]

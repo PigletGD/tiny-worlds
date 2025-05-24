@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_tbweo")
-letter_time = 0.03
-space_time = 0.04
-punctuation_time = 0.2
+letter_time = 0.0
+space_time = 0.0
+punctuation_time = 0.0
 metadata/_custom_type_script = "uid://vnbdsjiivnxj"
